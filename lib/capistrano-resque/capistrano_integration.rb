@@ -7,7 +7,8 @@ module CapistranoResque
       capistrano_config.load do
 
         _cset(:workers, {"*" => 1})
-        _cset(:app_env, (fetch(:rails_env) rescue "production"))
+        _cset(:app_env) { fetch(:rails_env, "production") }
+        _cset(:verbosity, 1)
 
         def remote_file_exists?(full_path)
           "true" ==  capture("if [ -e #{full_path} ]; then echo 'true'; fi").strip
